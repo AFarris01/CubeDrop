@@ -1,0 +1,39 @@
+# This file contains a list of known bugs with CubeDrop
+
+Current Issues:
+    * Rotate empty list issue... sprite touched down before this was called, and faller was not re-populated yet??
+        Traceback info:
+            Drop Tick!
+            A sprite Hit other touchdowns!
+            Detected a full line at 330
+            Creating a fallcatcher with rect: <rect(0, 0, 360, 400)>
+            Hit Uparrow... Nothing to do!
+            Traceback (most recent call last):
+              File "./game.py", line 616, in <module>
+                faller.add( Rotate(sprites) )
+              File "./game.py", line 381, in Rotate
+                absbottom = min([x.rect.bottom for x in spritelist])
+            ValueError: min() arg is an empty sequence
+
+    DEBUG:game.gameutils:Made a shape! Rects: [<rect(30, 180, 30, 30)>, <rect(30, 210, 30, 30)>, <rect(30, 240, 30, 30)>, <rect(60, 240, 30, 30)>] 
+    DEBUG:game.tetboard:Rotate Conds: [[], {}, False] 
+    DEBUG:game.tetboard:Drop Tick!
+    DEBUG:game.tetboard:Drop Tick!
+    DEBUG:game.gameutils:A sprite Hit other touchdowns!
+    DEBUG:game.tetboard:Rotating a shape
+    Traceback (most recent call last):
+      File "cubedrop.py", line 316, in <module>
+        isgame.EventCatch( event )
+      File "/home/andrew/Development/Python/CubeDrop/game/tetboard.py", line 367, in EventCatch
+        self._EventCatch( event )
+      File "/home/andrew/Development/Python/CubeDrop/game/tetboard.py", line 445, in _EventCatch
+        gameutils.Rotate( self.faller.sprites(), K_RIGHT )
+      File "/home/andrew/Development/Python/CubeDrop/game/gameutils.py", line 227, in Rotate
+        absbottom = min(absbottom)
+    ValueError: min() arg is an empty sequence
+    
+            
+    * Small CubeLen's (<20) result in border mis-alignment.
+    * Border width does not scale with board dimensions
+    * No persistient data storage exists (neet to create)
+    * Game randomly stops updating the screen after hitting the 'Drop' key. No predictable pattern thus far...

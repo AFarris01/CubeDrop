@@ -1,0 +1,40 @@
+Things listed in this file are tasks in CubeDrop that need work. They are 
+divided by category, and by the file which requires the work. Individual files
+may also have lists of things that need doing inside them.
+
+Objective: 
+    * Implement a simple Tetris(tm) clone, with extra features (loosely-based on that extended tetris gameboy game I used to have...)
+    
+Desired Features(In order of Importance):
+    * Basic Tetris game (14 by 20)
+    * Variable Scale Tetris (X by Y)
+    * Scoreboarding
+    * Timed Tetris
+    * Extended Tetris Features ( New block types, powerups?, bonus point scores, etc... )
+    * Adventure Tetris (with the little dude running around, and the killer-claw/treasure)
+    * Re-themeing/skinning the game
+    * Dynamic screen resizing (maybe) [physical size, not board geometry]
+
+Current 'Do Want's:
+    * Change documentation strings from this format:
+        """
+        function/object description
+        INPUTS:
+        RETURNS:
+        ERRORS:
+        """
+       to something more like this:
+        """
+        function(prototype): return Something
+        
+        description
+        Errors:
+        """
+    * Cube graphics need a better way to define what color to replace
+    * Need to make some unittests for the different modules
+    * ScoreBoard
+    * Adventure Mode
+    * Resizable screen/board dimensions
+    * Block Powerups?
+    * 'Addicted for <amount of time>' message, or counter for each session
+    * Sound system
