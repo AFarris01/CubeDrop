@@ -45,6 +45,7 @@ try:
     from pygame import Surface
     from pygame.locals import *
     from pygame import sprite, time, transform, key
+    from pygame.mixer import music
 except ImportError, err:
     raise SystemExit, "ERROR in %s: Couldn't load a required module: %s" % (__name__,err)
 
@@ -228,9 +229,6 @@ class GameBoard( object ):
         self._paused = False
         self._gameover = False
         
-        # Load external resources
-#        self.Resources.LoadImage( 'boxxen.png', 'Cube' )
-        
         # Initialize object groups
         self.wall = sprite.RenderUpdates()
         self.fallen = sprite.RenderUpdates()
@@ -248,13 +246,9 @@ class GameBoard( object ):
         self.scoreboard = objects.ScoreKeeper()
         self.pieces = ShapesMgr(enabled=sets)
         self.spawnbox = objects.SpawnBox( self.rect, 3,2, cubelen )
-#        self.preview = Previewer( Rect(0,0,0,0), self )
         
         # Collision Detectors
         self.linefulldetector = detectors.CollDetector(self.rect, cubelen)
-
-        # Add needed objects to groups
-#        self.wall.add(self.preview)
 
         # start a reguler event, used to trigger pieces falling
         self._set_timer( TICKDROP_EVENT )
@@ -279,14 +273,21 @@ class GameBoard( object ):
     def Pause( self ):
         if self._paused:
             self._paused = False
+            music.unpause()
             self.wall.empty()
         else:
             self._paused = True
+            music.pause()
             s = StaticTextWidget("Paused", (255,255,255), 3*self.cubelen)
             s.rect.center = self.rect.center
             self.wall.add( s )
             
     def GameOver( self ):
+        music.stop()
+        self.Resources.get('sound','end').play()
+        for each in self.fallen:
+            each.desaturate()
+
         self._gameover = True
         s = StaticTextWidget("Game Over!", (255,255,255), 3*self.cubelen)
         t = StaticTextWidget("Score: %s" % self.scoreboard.get_score(), (255,255,255), 2*self.cubelen)
@@ -357,6 +358,7 @@ class GameBoard( object ):
                 logger.debug("Detected a full line at %i" % self.linefulldetector.rect.bottom)
                 self.fallen.remove( collisions )
                 remlines.append( self.linefulldetector.rect.bottom )
+                self.Resources.get('sound','remove').play()
             elif len(collisions) > 0:
 #                logger.debug("Detected a partially full line at %i" % self.linefulldetector.rect.bottom)
                 pass
@@ -369,15 +371,15 @@ class GameBoard( object ):
             collisions = sprite.spritecollide( detectors.FallCatcher(site,self.rect), self.fallen, True )
             self.fallenfallers.append(sprite.RenderUpdates( collisions ))
             self._set_timer( LINEDROP_EVENT )
-        return len(remlines)*self.width
+        return len(remlines)*self.width*round(0.15*len(remlines)+0.81,1), len(remlines)
     
     def EventCatch( self, event ):
         """Wrapper around _EventCatch to add the ability to pause the game"""
-        if event.type == KEYDOWN and event.key == K_p:
-            self.Pause()
-        elif event.type == KEYDOWN and self._gameover:
+        if event.type == KEYDOWN and self._gameover:
             self.Deactivate()
             print "Game is currently over!"
+        elif event.type == KEYDOWN and event.key == K_p:
+            self.Pause()
         else:
             if not self._paused:
                 self._EventCatch( event )
@@ -412,6 +414,7 @@ class GameBoard( object ):
                 if not sprite.spritecollide( self.border.left, self.faller, False ):
                     logger.debug("No collision between faller and borders")
                     self.faller.stepleft()
+                    self.Resources.get('sound','bump').play()
                     if sprite.groupcollide( self.faller, self.fallen, False, False ):
                         # The step resulted in a collision... step back
                         self.faller.stepright()
@@ -423,6 +426,7 @@ class GameBoard( object ):
                 if not sprite.spritecollide( self.border.right, self.faller, False ):
                     logger.debug("No collision between faller and borders")
                     self.faller.stepright()
+                    self.Resources.get('sound','bump').play()
                     if sprite.groupcollide( self.faller, self.fallen, False, False ):
                         # The step resulted in a collision... step back
                         self.faller.stepleft()
@@ -432,7 +436,8 @@ class GameBoard( object ):
             elif event.key == self.__class__.kMAP['BUMPDOWN']:
                 logger.debug("Bumping a shape down")
                 gameutils.TickDrop( self.faller, self.fallen, self.border.floor )
-                self.scoreboard.mark( 1, 'stepdown' )
+                self.Resources.get('sound','bump').play()
+                self.scoreboard.mark( (1,0), 'stepdown' )
                     
             elif event.key == self.__class__.kMAP['DROP']:
                 logger.debug("Dropping a shape")
@@ -448,7 +453,8 @@ class GameBoard( object ):
                         else:
                             self.faller.stepdown()
                             logger.debug("Bumping a sprite Down.")
-                        self.scoreboard.mark( 1, 'drop' )
+                        self.scoreboard.mark( (1,0), 'drop' )
+                    self.Resources.get('sound','drop').play()
                 else:
                     logger.debug('Tried to drop a shape, but no shape was spawned')
                 touchdowns = self.faller.sprites()
@@ -468,6 +474,7 @@ class GameBoard( object ):
                 if any(conds):
                     # The rotate resulted in a collision... step back
                     gameutils.Rotate( self.faller.sprites(), K_LEFT )
+                    self.Resources.get('sound','rotate').play()
         
     def __nonzero__( self ):
         """
@@ -496,7 +503,7 @@ class GameBoard( object ):
             self.GameOver()
         if self.Leveling:
             coef = self.Level - self._startlevel_ + 1
-            if (self.scoreboard.get_score()//(coef*1000)) > 0:
+            if (self.scoreboard.get_lines()//(coef*10)) > 0:
                 self.Level += 1
                 self._set_timer( TICKDROP_EVENT )
         self.maintainfaller()

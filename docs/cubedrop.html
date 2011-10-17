@@ -35,7 +35,7 @@
 #&nbsp;&nbsp;along&nbsp;with&nbsp;this&nbsp;program.&nbsp;&nbsp;If&nbsp;not,&nbsp;see&nbsp;&lt;<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
 ################################################################################<br>
-#TODO:&nbsp;All&nbsp;program&nbsp;resources&nbsp;(images&nbsp;and&nbsp;sound)&nbsp;should&nbsp;be&nbsp;loaded&nbsp;from&nbsp;a&nbsp;singe&nbsp;<br>
+#TODO:&nbsp;All&nbsp;program&nbsp;resources&nbsp;(images&nbsp;and&nbsp;sound)&nbsp;should&nbsp;be&nbsp;loaded&nbsp;from&nbsp;a&nbsp;single&nbsp;<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;source,&nbsp;then&nbsp;just&nbsp;repeatedly&nbsp;read/copied&nbsp;from&nbsp;there,&nbsp;instead&nbsp;of&nbsp;<br>
 #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repeatedly&nbsp;loading&nbsp;from&nbsp;the&nbsp;hard-disk</tt></p>
 <p>
@@ -45,13 +45,17 @@
 <font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="pygame.color.html">pygame.color</a><br>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="atexit.html">atexit</a><br>
+<a href="pygame.color.html">pygame.color</a><br>
+<a href="game.html">game</a><br>
+</td><td width="25%" valign=top><a href="gui.html">gui</a><br>
+<a href="logging.html">logging</a><br>
 <a href="math.html">math</a><br>
 </td><td width="25%" valign=top><a href="optparse.html">optparse</a><br>
 <a href="os.html">os</a><br>
-</td><td width="25%" valign=top><a href="platform.html">platform</a><br>
-<a href="pygame.html">pygame</a><br>
-</td><td width="25%" valign=top><a href="random.html">random</a><br>
+<a href="platform.html">platform</a><br>
+</td><td width="25%" valign=top><a href="pygame.html">pygame</a><br>
+<a href="random.html">random</a><br>
 <a href="sys.html">sys</a><br>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -228,31 +232,10 @@ INPUTS:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;parser&nbsp;=&nbsp;a&nbsp;reference&nbsp;to&nbsp;the&nbsp;actual&nbsp;optionparser&nbsp;object<br>
 RETURNS:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
- <dl><dt><a name="-LoadImage"><strong>LoadImage</strong></a>(name, colorkey<font color="#909090">=None</font>)</dt><dd><tt>Load&nbsp;an&nbsp;image&nbsp;file,&nbsp;given&nbsp;a&nbsp;filename.&nbsp;Also&nbsp;allows&nbsp;setting&nbsp;a&nbsp;special&nbsp;<br>
-transparency&nbsp;'colorkey'&nbsp;for&nbsp;the&nbsp;given&nbsp;image&nbsp;file.&nbsp;If&nbsp;the&nbsp;loaded&nbsp;image<br>
-format&nbsp;supports&nbsp;transparency&nbsp;without&nbsp;using&nbsp;a&nbsp;colorkey&nbsp;(i.e.&nbsp;.png,&nbsp;.gif),<br>
-any&nbsp;supplied&nbsp;colorkey&nbsp;is&nbsp;ignored.<br>
-&nbsp;<br>
-INPUTS:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;short&nbsp;filename&nbsp;of&nbsp;object&nbsp;(not&nbsp;including&nbsp;path)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;colorkey&nbsp;=&nbsp;RGB&nbsp;3-tuple&nbsp;representing&nbsp;the&nbsp;color&nbsp;of&nbsp;transparency<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;None:&nbsp;[default]&nbsp;Dont&nbsp;set&nbsp;colorkey&nbsp;data<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;-1:&nbsp;Read&nbsp;the&nbsp;colorkey&nbsp;of&nbsp;the&nbsp;top-left&nbsp;corner&nbsp;and&nbsp;use&nbsp;that<br>
-RETURNS:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(image&nbsp;object,&nbsp;image.rect)</tt></dd></dl>
- <dl><dt><a name="-LoadSound"><strong>LoadSound</strong></a>(name)</dt><dd><tt>Load&nbsp;an&nbsp;sound&nbsp;file,&nbsp;given&nbsp;a&nbsp;filename.&nbsp;Includes&nbsp;error&nbsp;checking&nbsp;in&nbsp;case<br>
-the&nbsp;sound&nbsp;subsystem&nbsp;was&nbsp;not&nbsp;available<br>
-&nbsp;<br>
-INPUTS:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;short&nbsp;filename&nbsp;of&nbsp;object&nbsp;(not&nbsp;including&nbsp;path)<br>
-RETURNS:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(image&nbsp;object,&nbsp;image.rect)</tt></dd></dl>
- <dl><dt><a name="-ModulePresent"><strong>ModulePresent</strong></a>(modulename)</dt><dd><tt>Test&nbsp;if&nbsp;a&nbsp;given&nbsp;module&nbsp;is&nbsp;present&nbsp;or&nbsp;not.<br>
-&nbsp;<br>
-INPUTS:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;module&nbsp;name<br>
-RETURNS:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;String&nbsp;message&nbsp;indicating&nbsp;the&nbsp;presence</tt></dd></dl>
+ <dl><dt><a name="-FireUpPygame"><strong>FireUpPygame</strong></a>()</dt></dl>
+ <dl><dt><a name="-MakeBorders"><strong>MakeBorders</strong></a>(resources, background, *args)</dt></dl>
+ <dl><dt><a name="-PrintProgramData"><strong>PrintProgramData</strong></a>()</dt></dl>
+ <dl><dt><a name="-ReportOnModule"><strong>ReportOnModule</strong></a>(mdname, isinit)</dt></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
@@ -273,7 +256,7 @@ RETURNS:<br>
 <strong>AUDIO_U16MSB</strong> = 4112<br>
 <strong>AUDIO_U16SYS</strong> = 16<br>
 <strong>AUDIO_U8</strong> = 8<br>
-<strong>AUTHORS</strong> = ['Andrew Farris &lt;Viaticus.RPG@gmail.com&gt; **Primary Maintainer**']<br>
+<strong>AUTHORS</strong> = ['Andrew Farris &lt;Viaticus.RPG@gmail.com&gt; **Primary Maintainer**', '', 'CREDITS:', 'textwidget -- GPLv3 -- Copyright 2008 Mark Mruss &lt;selsine@gmail.com&gt;', 'Linux Libertine -- GPL2+with-font-exception and ...ilipp H. Poll &lt;philthelion@users.sourceforge.net&gt;']<br>
 <strong>BIG_ENDIAN</strong> = 4321<br>
 <strong>BLEND_ADD</strong> = 1<br>
 <strong>BLEND_MAX</strong> = 5<br>
@@ -290,11 +273,15 @@ RETURNS:<br>
 <strong>BLEND_RGB_MULT</strong> = 3<br>
 <strong>BLEND_RGB_SUB</strong> = 2<br>
 <strong>BLEND_SUB</strong> = 2<br>
+<strong>BOARDHEIGHT</strong> = 20<br>
+<strong>BOARDWIDTH</strong> = 14<br>
 <strong>BUTTON_X1</strong> = 6<br>
 <strong>BUTTON_X2</strong> = 7<br>
 <strong>COPYRIGHT</strong> = 'Copyright <font color="#c040c0">\xc2\xa9</font> 2011 Andrew Farris -- GNU GPL v3'<br>
+<strong>CUBELEN</strong> = 30<br>
 <strong>DEBUG</strong> = True<br>
 <strong>DOUBLEBUF</strong> = 1073741824<br>
+<strong>FONTDIR</strong> = 'data'<br>
 <strong>FULLSCREEN</strong> = -2147483648<br>
 <strong>GL_ACCELERATED_VISUAL</strong> = 15<br>
 <strong>GL_ACCUM_ALPHA_SIZE</strong> = 11<br>
@@ -325,6 +312,7 @@ RETURNS:<br>
 <strong>HWACCEL</strong> = 256<br>
 <strong>HWPALETTE</strong> = 536870912<br>
 <strong>HWSURFACE</strong> = 1<br>
+<strong>IMAGEDIR</strong> = 'data'<br>
 <strong>IYUV_OVERLAY</strong> = 1448433993<br>
 <strong>JOYAXISMOTION</strong> = 7<br>
 <strong>JOYBALLMOTION</strong> = 8<br>
@@ -486,6 +474,7 @@ RETURNS:<br>
 <strong>K_y</strong> = 121<br>
 <strong>K_z</strong> = 122<br>
 <strong>LIL_ENDIAN</strong> = 1234<br>
+<strong>MAXFPS</strong> = 60<br>
 <strong>MOUSEBUTTONDOWN</strong> = 5<br>
 <strong>MOUSEBUTTONUP</strong> = 6<br>
 <strong>MOUSEMOTION</strong> = 4<br>
@@ -499,7 +488,6 @@ RETURNS:<br>
 <strong>PROGNAME</strong> = 'CubeDrop'<br>
 <strong>QUIT</strong> = 12<br>
 <strong>RESIZABLE</strong> = 16<br>
-<strong>RESOURCEDIR</strong> = 'data'<br>
 <strong>RLEACCEL</strong> = 16384<br>
 <strong>RLEACCELOK</strong> = 8192<br>
 <strong>SCRAP_BMP</strong> = 'image/bmp'<br>
@@ -508,6 +496,7 @@ RETURNS:<br>
 <strong>SCRAP_PPM</strong> = 'image/ppm'<br>
 <strong>SCRAP_SELECTION</strong> = 1<br>
 <strong>SCRAP_TEXT</strong> = 'text/plain'<br>
+<strong>SOUNDDIR</strong> = 'data'<br>
 <strong>SRCALPHA</strong> = 65536<br>
 <strong>SRCCOLORKEY</strong> = 4096<br>
 <strong>SWSURFACE</strong> = 0<br>
@@ -515,7 +504,7 @@ RETURNS:<br>
 <strong>TIMER_RESOLUTION</strong> = 10<br>
 <strong>USEREVENT</strong> = 24<br>
 <strong>UYVY_OVERLAY</strong> = 1498831189<br>
-<strong>VERSION</strong> = '0.0.1'<br>
+<strong>VERSION</strong> = '0.5.0'<br>
 <strong>VIDEOEXPOSE</strong> = 17<br>
 <strong>VIDEORESIZE</strong> = 16<br>
 <strong>WEBSITE</strong> = 'N/A'<br>
@@ -523,5 +512,6 @@ RETURNS:<br>
 <strong>YV12_OVERLAY</strong> = 842094169<br>
 <strong>YVYU_OVERLAY</strong> = 1431918169<br>
 <strong>authfile</strong> = &lt;closed file '/home/andrew/Development/Python/CubeDrop/AUTHORS', mode 'r'&gt;<br>
-<strong>line</strong> = 'Andrew Farris &lt;Viaticus.RPG@gmail.com&gt; **Primary Maintainer**<font color="#c040c0">\n</font>'</td></tr></table>
+<strong>line</strong> = 'Linux Libertine -- GPL2+with-font-exception and ...lipp H. Poll &lt;philthelion@users.sourceforge.net&gt;<font color="#c040c0">\n</font>'<br>
+<strong>logger</strong> = &lt;logging.Logger instance&gt;</td></tr></table>
 </body></html>

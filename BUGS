@@ -37,3 +37,10 @@ Current Issues:
     * Border width does not scale with board dimensions
     * No persistient data storage exists (neet to create)
     * Game randomly stops updating the screen after hitting the 'Drop' key. No predictable pattern thus far...
+    * crash due to unavailable audio device: 
+        Traceback (most recent call last):
+          File "/home/andrew/Development/Python/CubeDrop/cubedrop.py", line 222, in <module>
+            FireUpPygame()
+          File "/home/andrew/Development/Python/CubeDrop/cubedrop.py", line 155, in FireUpPygame
+            pygame.mixer.init()
+        pygame.error: No available audio device

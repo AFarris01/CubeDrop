@@ -135,24 +135,49 @@ class ResourceManager( object ):
             
         if not pygame.mixer:
             return NoneSound()
-        else:
-            fullname = os.path.join( 'data', name )
             
         try:
             sound = pygame.mixer.Sound( fullname )
         except pygameerror, message:
-            logger.critical("OOPS: Failed to load sound data from %s. Cannot continue." % (fullpath))
+            logger.critical("OOPS: Failed to load sound data from %s. Cannot continue." % (fullname))
             raise IOError, message
             
         self._sounds[alias] = sound
         
+    def LoadMusic( self, name, alias, path=None, sounddir="" ):
+        """
+        Load an sound file, given a filename. If the sound subsystem is not 
+        loaded, this returns a dummy sound object.
+        IMPORTANT -- This function will not produce any error if a sound file does 
+                     not exist, when pygame.mixer could not be loaded
+        
+        INPUTS:
+            name     = short filename of object (not including path)
+        RETURNS:
+            none
+        ERRORS:
+            ValueError exception, if PATH + SOUNDDIR not in global namespace, and 
+                                  the 'path' argument was not defined
+            IOError exception, when the given file isn't found or can't be loaded
+        """
+        fullname = os.path.join( [self.PATH, self.SOUNDDIR, name])
+            
+        if not pygame.mixer:
+            pass
+            
+        try:
+            pygame.mixer.music.load( fullname )
+        except pygameerror, message:
+            logger.critical("OOPS: Failed to load sound data from %s. Cannot continue." % (fullname))
+            raise IOError, message
+            
     def LoadFont( self, name, alias, size, path=None, fontdir="" ):
         fullname = os.path.join( self.PATH, self.FONTDIR, name)
 
         try:
             fonty = pygame.font.Font( fullname, size )
         except pygameerror, message:
-            logger.critical("OOPS: Failed to load font data from %s. Cannot continue." % (fullpath))
+            logger.critical("OOPS: Failed to load font data from %s. Cannot continue." % (fullname))
             raise IOError, message
             
         self._fonts[alias] = fonty

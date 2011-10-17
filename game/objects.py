@@ -42,6 +42,7 @@ try:
     import pygame.rect
     from math import floor
     import pygame.font
+    from pygame import Color
     from pygame import sprite
     from pygame import Surface
     from pygame import SRCALPHA
@@ -166,10 +167,48 @@ class Cube( sprite.DirtySprite ):
             
         #TODO: This needs to be improved upon
         if color != None:
-            basecol = transform.average_color( self.image )
-            trans = PixelArray( self.image )
-            trans.replace( basecol, color, distance = 0.08 )
-            self.image = trans.make_surface()
+            self.makecolor( color )
+            
+    def cadd( self, x, y ):
+#        return x+y if (x+y)<256 else 255
+        r = (x*y)/(x+y)
+        return r if r<256 else 255
+    
+    def desaturate( self ):
+        trans = PixelArray( self.image )
+        w = len(trans)
+        h = len(trans[0])
+        for x in range(w):
+            for y in range(h):
+                color = self.image.unmap_rgb(trans[x][y])
+                color.hsla = (color.hsla[0], 0, color.hsla[2], color.hsla[3])
+                trans[x][y] = self.image.map_rgb( color )
+        self.image = trans.make_surface()
+        del trans
+        
+    def makecolor( self, pgcolor ):
+        """
+        Picks the color at the center of the shape, and replaces that with the 
+        given color.
+        """
+        #TODO: Make this shift the color to the correct one, rather than replacing
+        #      shifting will allow shading etc in the source image to remain intact
+#        basecol = transform.average_color( self.image )
+        pgcolor = Color(*pgcolor)
+        trans = PixelArray( self.image )
+        w = len(trans)
+        h = len(trans[0])
+        for x in range(w):
+            for y in range(h):
+                color = self.image.unmap_rgb(trans[x][y])
+                if not color[3] == 0: # if the pixel is not fully transparent
+#                    res = map(self.cadd,color[:3],pgcolor[:3])
+#                    trans[x][y] = self.image.map_rgb( res + [color[3]] )
+                    color.hsla = (pgcolor.hsla[0], pgcolor.hsla[1], abs(color.hsla[2]-pgcolor.hsla[2]), color.hsla[3])
+                    trans[x][y] = self.image.map_rgb( color )
+#        trans.replace( trans[int(w/2)][int(h/2)], pgcolor, distance = 0.08 )
+        self.image = trans.make_surface()
+        del trans
         
     def update( self ):
         """
@@ -218,8 +257,7 @@ class FallerGroup( sprite.RenderUpdates ):
     def stepdown( self ):
         for each in self:
             each.stepdown()
-
-
+            
 #TODO: Make this load a backdrop from an external source
 class Backdrop( sprite.DirtySprite ):
     """
@@ -265,9 +303,11 @@ class ScoreKeeper( object ):
         """
         self.SCORES = { 'removed':10, 'stepdown':1, 'drop':2 }
         self._score = 0
+        self._lines = 0
         
     def reset( self ):
         self._score = 0
+        self._lines = 0
         
     def mark( self, number, state='removed' ):
         """
@@ -283,7 +323,9 @@ class ScoreKeeper( object ):
         ERRORS:
             None
         """
-        self._score += number * self.SCORES.get( state, 0 )
+        cubes, lines = number
+        self._score += int(cubes * self.SCORES.get( state, 0 ))
+        self._lines += lines
         
     def renderscore( self, infont ):
         """
@@ -301,3 +343,6 @@ class ScoreKeeper( object ):
         
     def get_score( self ):
         return self._score
+        
+    def get_lines( self ):
+        return self._lines

@@ -1,0 +1,142 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module game.gameutils</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="game.html"><font color="#ffffff">game</font></a>.gameutils</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/andrew/Development/Python/CubeDrop/game/gameutils.py">/home/andrew/Development/Python/CubeDrop/game/gameutils.py</a></font></td></tr></table>
+    <p><tt>###############################&nbsp;File&nbsp;Descriptor&nbsp;################################<br>
+#&nbsp;&nbsp;This&nbsp;file&nbsp;is&nbsp;part&nbsp;of&nbsp;the&nbsp;'game'&nbsp;module&nbsp;for&nbsp;the&nbsp;program&nbsp;'CubeDrop'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;gameutils.py&nbsp;&nbsp;-&nbsp;&nbsp;By:&nbsp;Andrew&nbsp;Farris&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;CubeDrop&nbsp;is&nbsp;designed&nbsp;to&nbsp;be&nbsp;a&nbsp;good-ole-fasioned&nbsp;Tetris(TM)&nbsp;clone&nbsp;to&nbsp;use&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;as&nbsp;practice&nbsp;for&nbsp;using&nbsp;pygame,&nbsp;and&nbsp;a&nbsp;few&nbsp;other&nbsp;python&nbsp;libraries&nbsp;I&nbsp;haven't&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;made&nbsp;frequent&nbsp;use&nbsp;of.&nbsp;In&nbsp;addition,&nbsp;it&nbsp;is&nbsp;intended&nbsp;to&nbsp;expand&nbsp;on&nbsp;the&nbsp;initial&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;game&nbsp;idea&nbsp;by&nbsp;adding&nbsp;some&nbsp;features&nbsp;I&nbsp;found&nbsp;in&nbsp;another&nbsp;tetris&nbsp;clone&nbsp;I&nbsp;used&nbsp;to&nbsp;#<br>
+#&nbsp;&nbsp;have&nbsp;on&nbsp;Gameboy(TM),&nbsp;and&nbsp;other&nbsp;stuff&nbsp;I&nbsp;thought&nbsp;was&nbsp;cool.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;This&nbsp;file&nbsp;contains&nbsp;general&nbsp;utilities&nbsp;required&nbsp;by&nbsp;the&nbsp;game&nbsp;to&nbsp;operate.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+####################################&nbsp;Legal&nbsp;#####################################<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;(C)opyright&nbsp;2011&nbsp;Andrew&nbsp;Farris&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software:&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation,&nbsp;either&nbsp;version&nbsp;3&nbsp;of&nbsp;the&nbsp;License,&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;along&nbsp;with&nbsp;this&nbsp;program.&nbsp;&nbsp;If&nbsp;not,&nbsp;see&nbsp;&lt;<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+################################################################################</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="logging.html">logging</a><br>
+</td><td width="25%" valign=top><a href="pygame.sprite.html">pygame.sprite</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-CCW"><strong>CCW</strong></a>(strinput)</dt><dd><tt>Rotate&nbsp;the&nbsp;given&nbsp;input&nbsp;string&nbsp;signature&nbsp;CCW&nbsp;by&nbsp;90&nbsp;degrees<br>
+&nbsp;<br>
+INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;strinput&nbsp;=&nbsp;the&nbsp;string&nbsp;signature&nbsp;to&nbsp;rotate&nbsp;(i.e.&nbsp;'110,011')<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;signature&nbsp;that&nbsp;has&nbsp;been&nbsp;properly&nbsp;rotated.<br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-CW"><strong>CW</strong></a>(strinput)</dt><dd><tt>Rotate&nbsp;the&nbsp;given&nbsp;input&nbsp;string&nbsp;signature&nbsp;CW&nbsp;by&nbsp;90&nbsp;degrees<br>
+&nbsp;<br>
+INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;strinput&nbsp;=&nbsp;the&nbsp;string&nbsp;signature&nbsp;to&nbsp;rotate&nbsp;(i.e.&nbsp;'110,011')<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;signature&nbsp;that&nbsp;has&nbsp;been&nbsp;properly&nbsp;rotated.<br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-GenerateShape"><strong>GenerateShape</strong></a>(shapedef, graphic<font color="#909090">=None</font>, xoffset<font color="#909090">=0</font>, yoffset<font color="#909090">=0</font>, spritelist<font color="#909090">=None</font>, mcolor<font color="#909090">=None</font>, cubelen<font color="#909090">=None</font>)</dt><dd><tt>Generate&nbsp;a&nbsp;list&nbsp;of&nbsp;cubes,&nbsp;positioned&nbsp;appropriately,&nbsp;based&nbsp;on&nbsp;a&nbsp;provided<br>
+shape&nbsp;definition.<br>
+&nbsp;<br>
+INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;shapedef&nbsp;=&nbsp;a&nbsp;string,&nbsp;designating&nbsp;the&nbsp;shape&nbsp;layout.&nbsp;Rules&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;is&nbsp;empty&nbsp;space,&nbsp;1&nbsp;is&nbsp;a&nbsp;cube,&nbsp;i.e.:&nbsp;"111",&nbsp;"1011"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;2D&nbsp;shapes,&nbsp;seperate&nbsp;rows&nbsp;with&nbsp;a&nbsp;comma,&nbsp;i.e.&nbsp;"111,001"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;graphic&nbsp;&nbsp;=&nbsp;an&nbsp;image&nbsp;resource&nbsp;tuple&nbsp;of&nbsp;(image,&nbsp;rect)&nbsp;form<br>
+&nbsp;&nbsp;&nbsp;&nbsp;xoffset&nbsp;&nbsp;=&nbsp;distance&nbsp;from&nbsp;the&nbsp;left&nbsp;side&nbsp;of&nbsp;the&nbsp;destination&nbsp;surface&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;the&nbsp;left&nbsp;edge&nbsp;of&nbsp;the&nbsp;shape&nbsp;should&nbsp;appear.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;yoffset&nbsp;&nbsp;=&nbsp;distance&nbsp;from&nbsp;the&nbsp;top&nbsp;side&nbsp;of&nbsp;the&nbsp;destination&nbsp;surface&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;the&nbsp;left&nbsp;edge&nbsp;of&nbsp;the&nbsp;shape&nbsp;should&nbsp;appear.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;spritelist&nbsp;=&nbsp;list&nbsp;of&nbsp;sprites&nbsp;to&nbsp;be&nbsp;manipulated.&nbsp;If&nbsp;this&nbsp;is&nbsp;None,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;new&nbsp;'Cube'&nbsp;objects&nbsp;are&nbsp;created&nbsp;instead.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mcolor&nbsp;&nbsp;&nbsp;=&nbsp;RGBA&nbsp;colorkey&nbsp;(as&nbsp;generated&nbsp;by&nbsp;pygame.Color)&nbsp;designating&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;color&nbsp;of&nbsp;the&nbsp;cubes&nbsp;to&nbsp;be&nbsp;generated.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cubelen&nbsp;&nbsp;=&nbsp;cube&nbsp;side&nbsp;length<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;array&nbsp;of&nbsp;'Cube'&nbsp;objects&nbsp;fitting&nbsp;the&nbsp;shape&nbsp;definition,&nbsp;with&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;appropriately&nbsp;positioned&nbsp;Rects.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;'spritelist'&nbsp;is&nbsp;provided,&nbsp;the&nbsp;operation&nbsp;takes&nbsp;place&nbsp;in-place&nbsp;instead<br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-Rotate"><strong>Rotate</strong></a>(spritelist, direction<font color="#909090">=275</font>)</dt><dd><tt>Take&nbsp;a&nbsp;list&nbsp;of&nbsp;sprites,&nbsp;and&nbsp;rotate&nbsp;them&nbsp;all,&nbsp;provided&nbsp;all&nbsp;the&nbsp;shape&nbsp;<br>
+signatures&nbsp;match.&nbsp;If&nbsp;they&nbsp;do&nbsp;not&nbsp;match,&nbsp;then&nbsp;don't&nbsp;do&nbsp;anything.<br>
+&nbsp;<br>
+INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;spritelist&nbsp;=&nbsp;a&nbsp;list&nbsp;of&nbsp;sprites&nbsp;that&nbsp;are&nbsp;to&nbsp;be&nbsp;rotated.&nbsp;Note,&nbsp;they<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;must&nbsp;have&nbsp;a&nbsp;'ShapeSig'&nbsp;attribute.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;direction&nbsp;&nbsp;=&nbsp;The&nbsp;direction&nbsp;they&nbsp;must&nbsp;turn,&nbsp;as&nbsp;a&nbsp;pygame&nbsp;keycode.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K_LEFT&nbsp;==&nbsp;CCW&nbsp;rotation,&nbsp;K_RIGHT&nbsp;==&nbsp;CW&nbsp;rotation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(NOTE:&nbsp;CURRENTLY&nbsp;NOT&nbsp;IMPLIMENTED)<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;Cube&nbsp;sprites,&nbsp;in&nbsp;the&nbsp;correct&nbsp;orientation<br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError&nbsp;exception,&nbsp;if&nbsp;the&nbsp;value&nbsp;of&nbsp;direction&nbsp;!=&nbsp;pygame.locals.K_LEFT<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;pygame.locals.K_RIGHT</tt></dd></dl>
+ <dl><dt><a name="-TickDrop"><strong>TickDrop</strong></a>(thefaller, thefallen, thefloor)</dt><dd><tt>Use&nbsp;this&nbsp;function&nbsp;to&nbsp;step&nbsp;all&nbsp;'faller'&nbsp;sprites&nbsp;down,&nbsp;with&nbsp;some&nbsp;collision<br>
+detection.&nbsp;Operation&nbsp;is&nbsp;in-place.<br>
+&nbsp;<br>
+INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;thefaller&nbsp;=&nbsp;pygame.sprite.Group&nbsp;containing&nbsp;any&nbsp;falling&nbsp;sprites<br>
+&nbsp;&nbsp;&nbsp;&nbsp;thefallen&nbsp;=&nbsp;pygame.sprite.Group&nbsp;containing&nbsp;any&nbsp;stationary&nbsp;sprites<br>
+&nbsp;&nbsp;&nbsp;&nbsp;thefloor&nbsp;&nbsp;=&nbsp;object&nbsp;with&nbsp;a&nbsp;*.rect,&nbsp;that&nbsp;represents&nbsp;the&nbsp;floor<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;pieces&nbsp;were&nbsp;emptied,&nbsp;False&nbsp;otherwise<br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-blankArray"><strong>blankArray</strong></a>(rows, cols)</dt><dd><tt>Generate&nbsp;a&nbsp;blank&nbsp;signature&nbsp;array,&nbsp;of&nbsp;dimension&nbsp;[rows][cols]<br>
+&nbsp;<br>
+INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rows&nbsp;=&nbsp;#&nbsp;of&nbsp;rows&nbsp;to&nbsp;create&nbsp;in&nbsp;the&nbsp;array<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cols&nbsp;=&nbsp;#&nbsp;of&nbsp;cols&nbsp;to&nbsp;create&nbsp;in&nbsp;the&nbsp;array<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;An&nbsp;array,&nbsp;filled&nbsp;with&nbsp;'0'&nbsp;strings,&nbsp;of&nbsp;the&nbsp;given&nbsp;dimensions<br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-rectunion"><strong>rectunion</strong></a>(objsequence)</dt><dd><tt>Return&nbsp;a&nbsp;rect&nbsp;that&nbsp;bounds&nbsp;a&nbsp;sequence&nbsp;of&nbsp;objects</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>K_LEFT</strong> = 276<br>
+<strong>K_RIGHT</strong> = 275<br>
+<strong>logger</strong> = &lt;logging.Logger instance&gt;</td></tr></table>
+</body></html>

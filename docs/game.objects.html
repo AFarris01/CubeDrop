@@ -1,0 +1,554 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module game.objects</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="game.html"><font color="#ffffff">game</font></a>.objects</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/andrew/Development/Python/CubeDrop/game/objects.py">/home/andrew/Development/Python/CubeDrop/game/objects.py</a></font></td></tr></table>
+    <p><tt>###############################&nbsp;File&nbsp;Descriptor&nbsp;################################<br>
+#&nbsp;&nbsp;This&nbsp;file&nbsp;is&nbsp;part&nbsp;of&nbsp;the&nbsp;'game'&nbsp;module&nbsp;for&nbsp;the&nbsp;program&nbsp;'CubeDrop'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;objects.py&nbsp;&nbsp;-&nbsp;&nbsp;By:&nbsp;Andrew&nbsp;Farris&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;CubeDrop&nbsp;is&nbsp;designed&nbsp;to&nbsp;be&nbsp;a&nbsp;good-ole-fasioned&nbsp;Tetris(TM)&nbsp;clone&nbsp;to&nbsp;use&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;as&nbsp;practice&nbsp;for&nbsp;using&nbsp;pygame,&nbsp;and&nbsp;a&nbsp;few&nbsp;other&nbsp;python&nbsp;libraries&nbsp;I&nbsp;haven't&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;made&nbsp;frequent&nbsp;use&nbsp;of.&nbsp;In&nbsp;addition,&nbsp;it&nbsp;is&nbsp;intended&nbsp;to&nbsp;expand&nbsp;on&nbsp;the&nbsp;initial&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;game&nbsp;idea&nbsp;by&nbsp;adding&nbsp;some&nbsp;features&nbsp;I&nbsp;found&nbsp;in&nbsp;another&nbsp;tetris&nbsp;clone&nbsp;I&nbsp;used&nbsp;to&nbsp;#<br>
+#&nbsp;&nbsp;have&nbsp;on&nbsp;Gameboy(TM),&nbsp;and&nbsp;other&nbsp;stuff&nbsp;I&nbsp;thought&nbsp;was&nbsp;cool.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;This&nbsp;file&nbsp;contains&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;definitions&nbsp;for&nbsp;the&nbsp;CubeDrop&nbsp;game.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+####################################&nbsp;Legal&nbsp;#####################################<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;(C)opyright&nbsp;2011&nbsp;Andrew&nbsp;Farris&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software:&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation,&nbsp;either&nbsp;version&nbsp;3&nbsp;of&nbsp;the&nbsp;License,&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;along&nbsp;with&nbsp;this&nbsp;program.&nbsp;&nbsp;If&nbsp;not,&nbsp;see&nbsp;&lt;<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+################################################################################<br>
+#TODO:&nbsp;Remove&nbsp;the&nbsp;'self.<strong>image</strong>'&nbsp;attribute&nbsp;from&nbsp;the&nbsp;<a href="#Floor">Floor</a>&nbsp;<a href="__builtin__.html#object">object</a><br>
+#TODO:&nbsp;don't&nbsp;create&nbsp;a&nbsp;surface&nbsp;when&nbsp;making&nbsp;a&nbsp;<a href="#SpawnBox">SpawnBox</a><br>
+#TODO:&nbsp;Don't&nbsp;create&nbsp;a&nbsp;surface&nbsp;when&nbsp;making&nbsp;a&nbsp;<a href="#Wall">Wall</a><br>
+#TODO:&nbsp;Check&nbsp;the&nbsp;input&nbsp;arguments&nbsp;for&nbsp;<a href="#Wall">Wall</a><br>
+#TODO:&nbsp;<a href="#Cube">Cube</a>&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;absolutely&nbsp;should&nbsp;NOT&nbsp;load&nbsp;the&nbsp;cube&nbsp;graphic&nbsp;from&nbsp;disk&nbsp;every&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time&nbsp;a&nbsp;cube&nbsp;is&nbsp;created</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="logging.html">logging</a><br>
+</td><td width="25%" valign=top><a href="pygame.html">pygame</a><br>
+</td><td width="25%" valign=top><a href="pygame.sprite.html">pygame.sprite</a><br>
+</td><td width="25%" valign=top><a href="pygame.transform.html">pygame.transform</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="__builtin__.html#object">__builtin__.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="game.objects.html#Floor">Floor</a>
+</font></dt><dt><font face="helvetica, arial"><a href="game.objects.html#ScoreKeeper">ScoreKeeper</a>
+</font></dt><dt><font face="helvetica, arial"><a href="game.objects.html#SpawnBox">SpawnBox</a>
+</font></dt><dt><font face="helvetica, arial"><a href="game.objects.html#Wall">Wall</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="pygame.sprite.html#DirtySprite">pygame.sprite.DirtySprite</a>(<a href="pygame.sprite.html#Sprite">pygame.sprite.Sprite</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="game.objects.html#Backdrop">Backdrop</a>
+</font></dt><dt><font face="helvetica, arial"><a href="game.objects.html#Cube">Cube</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="pygame.sprite.html#RenderUpdates">pygame.sprite.RenderUpdates</a>(<a href="pygame.sprite.html#Group">pygame.sprite.Group</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="game.objects.html#FallerGroup">FallerGroup</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Backdrop">class <strong>Backdrop</strong></a>(<a href="pygame.sprite.html#DirtySprite">pygame.sprite.DirtySprite</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>basic&nbsp;sprite&nbsp;to&nbsp;hold&nbsp;the&nbsp;static&nbsp;backdrop<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="game.objects.html#Backdrop">Backdrop</a></dd>
+<dd><a href="pygame.sprite.html#DirtySprite">pygame.sprite.DirtySprite</a></dd>
+<dd><a href="pygame.sprite.html#Sprite">pygame.sprite.Sprite</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Backdrop-__init__"><strong>__init__</strong></a>(self, boardrect)</dt><dd><tt>INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;boardrect&nbsp;=&nbsp;a&nbsp;pygame.rect.Rect&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;that&nbsp;describes&nbsp;the&nbsp;game&nbsp;board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;geometry<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None<br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="pygame.sprite.html#DirtySprite">pygame.sprite.DirtySprite</a>:<br>
+<dl><dt><a name="Backdrop-__repr__"><strong>__repr__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="pygame.sprite.html#DirtySprite">pygame.sprite.DirtySprite</a>:<br>
+<dl><dt><strong>visible</strong></dt>
+<dd><tt>you&nbsp;can&nbsp;make&nbsp;this&nbsp;sprite&nbsp;disappear&nbsp;without&nbsp;removing&nbsp;it&nbsp;from&nbsp;the&nbsp;group,<br>
+values&nbsp;0&nbsp;for&nbsp;invisible&nbsp;and&nbsp;1&nbsp;for&nbsp;visible</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="pygame.sprite.html#Sprite">pygame.sprite.Sprite</a>:<br>
+<dl><dt><a name="Backdrop-add"><strong>add</strong></a>(self, *groups)</dt><dd><tt>add&nbsp;the&nbsp;sprite&nbsp;to&nbsp;groups<br>
+Sprite.<a href="#Backdrop-add">add</a>(*groups):&nbsp;return&nbsp;None<br>
+&nbsp;<br>
+Any&nbsp;number&nbsp;of&nbsp;Group&nbsp;instances&nbsp;can&nbsp;be&nbsp;passed&nbsp;as&nbsp;arguments.&nbsp;The&nbsp;<br>
+Sprite&nbsp;will&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;Groups&nbsp;it&nbsp;is&nbsp;not&nbsp;already&nbsp;a&nbsp;member&nbsp;of.</tt></dd></dl>
+
+<dl><dt><a name="Backdrop-add_internal"><strong>add_internal</strong></a>(self, group)</dt></dl>
+
+<dl><dt><a name="Backdrop-alive"><strong>alive</strong></a>(self)</dt><dd><tt>does&nbsp;the&nbsp;sprite&nbsp;belong&nbsp;to&nbsp;any&nbsp;groups<br>
+Sprite.<a href="#Backdrop-alive">alive</a>():&nbsp;return&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;True&nbsp;when&nbsp;the&nbsp;Sprite&nbsp;belongs&nbsp;to&nbsp;one&nbsp;or&nbsp;more&nbsp;Groups.</tt></dd></dl>
+
+<dl><dt><a name="Backdrop-groups"><strong>groups</strong></a>(self)</dt><dd><tt>list&nbsp;of&nbsp;Groups&nbsp;that&nbsp;contain&nbsp;this&nbsp;Sprite<br>
+Sprite.<a href="#Backdrop-groups">groups</a>():&nbsp;return&nbsp;group_list<br>
+&nbsp;<br>
+Return&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;the&nbsp;Groups&nbsp;that&nbsp;contain&nbsp;this&nbsp;Sprite.</tt></dd></dl>
+
+<dl><dt><a name="Backdrop-kill"><strong>kill</strong></a>(self)</dt><dd><tt>remove&nbsp;the&nbsp;Sprite&nbsp;from&nbsp;all&nbsp;Groups<br>
+Sprite.<a href="#Backdrop-kill">kill</a>():&nbsp;return&nbsp;None<br>
+&nbsp;<br>
+The&nbsp;Sprite&nbsp;is&nbsp;removed&nbsp;from&nbsp;all&nbsp;the&nbsp;Groups&nbsp;that&nbsp;contain&nbsp;it.&nbsp;This&nbsp;won't<br>
+change&nbsp;anything&nbsp;about&nbsp;the&nbsp;state&nbsp;of&nbsp;the&nbsp;Sprite.&nbsp;It&nbsp;is&nbsp;possible&nbsp;to&nbsp;continue<br>
+to&nbsp;use&nbsp;the&nbsp;Sprite&nbsp;after&nbsp;this&nbsp;method&nbsp;has&nbsp;been&nbsp;called,&nbsp;including&nbsp;adding&nbsp;it<br>
+to&nbsp;Groups.</tt></dd></dl>
+
+<dl><dt><a name="Backdrop-remove"><strong>remove</strong></a>(self, *groups)</dt><dd><tt>remove&nbsp;the&nbsp;sprite&nbsp;from&nbsp;groups<br>
+Sprite.<a href="#Backdrop-remove">remove</a>(*groups):&nbsp;return&nbsp;None<br>
+&nbsp;<br>
+Any&nbsp;number&nbsp;of&nbsp;Group&nbsp;instances&nbsp;can&nbsp;be&nbsp;passed&nbsp;as&nbsp;arguments.&nbsp;The&nbsp;Sprite&nbsp;will<br>
+be&nbsp;removed&nbsp;from&nbsp;the&nbsp;Groups&nbsp;it&nbsp;is&nbsp;currently&nbsp;a&nbsp;member&nbsp;of.</tt></dd></dl>
+
+<dl><dt><a name="Backdrop-remove_internal"><strong>remove_internal</strong></a>(self, group)</dt></dl>
+
+<dl><dt><a name="Backdrop-update"><strong>update</strong></a>(self, *args)</dt><dd><tt>method&nbsp;to&nbsp;control&nbsp;sprite&nbsp;behavior<br>
+Sprite.<a href="#Backdrop-update">update</a>(*args):<br>
+&nbsp;<br>
+The&nbsp;default&nbsp;implementation&nbsp;of&nbsp;this&nbsp;method&nbsp;does&nbsp;nothing;&nbsp;it's&nbsp;just&nbsp;a<br>
+convenient&nbsp;"hook"&nbsp;that&nbsp;you&nbsp;can&nbsp;override.&nbsp;This&nbsp;method&nbsp;is&nbsp;called&nbsp;by<br>
+Group.<a href="#Backdrop-update">update</a>()&nbsp;with&nbsp;whatever&nbsp;arguments&nbsp;you&nbsp;give&nbsp;it.<br>
+&nbsp;<br>
+There&nbsp;is&nbsp;no&nbsp;need&nbsp;to&nbsp;use&nbsp;this&nbsp;method&nbsp;if&nbsp;not&nbsp;using&nbsp;the&nbsp;convenience&nbsp;<br>
+method&nbsp;by&nbsp;the&nbsp;same&nbsp;name&nbsp;in&nbsp;the&nbsp;Group&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="pygame.sprite.html#Sprite">pygame.sprite.Sprite</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Cube">class <strong>Cube</strong></a>(<a href="pygame.sprite.html#DirtySprite">pygame.sprite.DirtySprite</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Basic&nbsp;sprite&nbsp;class,&nbsp;containing&nbsp;a&nbsp;little&nbsp;cube<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="game.objects.html#Cube">Cube</a></dd>
+<dd><a href="pygame.sprite.html#DirtySprite">pygame.sprite.DirtySprite</a></dd>
+<dd><a href="pygame.sprite.html#Sprite">pygame.sprite.Sprite</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Cube-__init__"><strong>__init__</strong></a>(self, graphic, sig<font color="#909090">=''</font>, pos<font color="#909090">=[]</font>, color<font color="#909090">=None</font>, cubelen<font color="#909090">=None</font>)</dt><dd><tt>INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;graphic&nbsp;=&nbsp;image&nbsp;graphic&nbsp;of&nbsp;form&nbsp;(image,rect)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sig&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;A&nbsp;string&nbsp;signature&nbsp;denoting&nbsp;the&nbsp;shape&nbsp;of&nbsp;which&nbsp;this&nbsp;cube<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;a&nbsp;member<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;a&nbsp;list&nbsp;containing&nbsp;the&nbsp;top-left&nbsp;coordinates<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;this&nbsp;cube&nbsp;in&nbsp;the&nbsp;given&nbsp;shape&nbsp;signature<br>
+&nbsp;&nbsp;&nbsp;&nbsp;color&nbsp;&nbsp;&nbsp;=&nbsp;the&nbsp;color&nbsp;to&nbsp;make&nbsp;the&nbsp;<a href="#Cube">Cube</a>&nbsp;(None&nbsp;means&nbsp;whatever&nbsp;the&nbsp;image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;already&nbsp;is)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cubelen&nbsp;=&nbsp;cube&nbsp;side&nbsp;length.<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;valid&nbsp;<a href="#Cube">Cube</a>&nbsp;<a href="__builtin__.html#object">object</a><br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError&nbsp;if&nbsp;both&nbsp;self.<strong>CubeLen</strong>&nbsp;and&nbsp;cubelen&nbsp;arg&nbsp;are&nbsp;undefined</tt></dd></dl>
+
+<dl><dt><a name="Cube-cadd"><strong>cadd</strong></a>(self, x, y)</dt></dl>
+
+<dl><dt><a name="Cube-desaturate"><strong>desaturate</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Cube-makecolor"><strong>makecolor</strong></a>(self, pgcolor)</dt><dd><tt>Picks&nbsp;the&nbsp;color&nbsp;at&nbsp;the&nbsp;center&nbsp;of&nbsp;the&nbsp;shape,&nbsp;and&nbsp;replaces&nbsp;that&nbsp;with&nbsp;the&nbsp;<br>
+given&nbsp;color.</tt></dd></dl>
+
+<dl><dt><a name="Cube-stepdown"><strong>stepdown</strong></a>(self)</dt><dd><tt>Step&nbsp;the&nbsp;cube&nbsp;down&nbsp;by&nbsp;one&nbsp;'height'</tt></dd></dl>
+
+<dl><dt><a name="Cube-stepleft"><strong>stepleft</strong></a>(self)</dt><dd><tt>Step&nbsp;the&nbsp;cube&nbsp;by&nbsp;one&nbsp;'width'&nbsp;to&nbsp;the&nbsp;left</tt></dd></dl>
+
+<dl><dt><a name="Cube-stepright"><strong>stepright</strong></a>(self)</dt><dd><tt>Step&nbsp;the&nbsp;cube&nbsp;by&nbsp;one&nbsp;'width'&nbsp;to&nbsp;the&nbsp;left</tt></dd></dl>
+
+<dl><dt><a name="Cube-stepup"><strong>stepup</strong></a>(self)</dt><dd><tt>Step&nbsp;the&nbsp;cube&nbsp;by&nbsp;one&nbsp;'height'&nbsp;up</tt></dd></dl>
+
+<dl><dt><a name="Cube-update"><strong>update</strong></a>(self)</dt><dd><tt>Not&nbsp;Implimented</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>CubeLen</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="pygame.sprite.html#DirtySprite">pygame.sprite.DirtySprite</a>:<br>
+<dl><dt><a name="Cube-__repr__"><strong>__repr__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="pygame.sprite.html#DirtySprite">pygame.sprite.DirtySprite</a>:<br>
+<dl><dt><strong>visible</strong></dt>
+<dd><tt>you&nbsp;can&nbsp;make&nbsp;this&nbsp;sprite&nbsp;disappear&nbsp;without&nbsp;removing&nbsp;it&nbsp;from&nbsp;the&nbsp;group,<br>
+values&nbsp;0&nbsp;for&nbsp;invisible&nbsp;and&nbsp;1&nbsp;for&nbsp;visible</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="pygame.sprite.html#Sprite">pygame.sprite.Sprite</a>:<br>
+<dl><dt><a name="Cube-add"><strong>add</strong></a>(self, *groups)</dt><dd><tt>add&nbsp;the&nbsp;sprite&nbsp;to&nbsp;groups<br>
+Sprite.<a href="#Cube-add">add</a>(*groups):&nbsp;return&nbsp;None<br>
+&nbsp;<br>
+Any&nbsp;number&nbsp;of&nbsp;Group&nbsp;instances&nbsp;can&nbsp;be&nbsp;passed&nbsp;as&nbsp;arguments.&nbsp;The&nbsp;<br>
+Sprite&nbsp;will&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;Groups&nbsp;it&nbsp;is&nbsp;not&nbsp;already&nbsp;a&nbsp;member&nbsp;of.</tt></dd></dl>
+
+<dl><dt><a name="Cube-add_internal"><strong>add_internal</strong></a>(self, group)</dt></dl>
+
+<dl><dt><a name="Cube-alive"><strong>alive</strong></a>(self)</dt><dd><tt>does&nbsp;the&nbsp;sprite&nbsp;belong&nbsp;to&nbsp;any&nbsp;groups<br>
+Sprite.<a href="#Cube-alive">alive</a>():&nbsp;return&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;True&nbsp;when&nbsp;the&nbsp;Sprite&nbsp;belongs&nbsp;to&nbsp;one&nbsp;or&nbsp;more&nbsp;Groups.</tt></dd></dl>
+
+<dl><dt><a name="Cube-groups"><strong>groups</strong></a>(self)</dt><dd><tt>list&nbsp;of&nbsp;Groups&nbsp;that&nbsp;contain&nbsp;this&nbsp;Sprite<br>
+Sprite.<a href="#Cube-groups">groups</a>():&nbsp;return&nbsp;group_list<br>
+&nbsp;<br>
+Return&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;the&nbsp;Groups&nbsp;that&nbsp;contain&nbsp;this&nbsp;Sprite.</tt></dd></dl>
+
+<dl><dt><a name="Cube-kill"><strong>kill</strong></a>(self)</dt><dd><tt>remove&nbsp;the&nbsp;Sprite&nbsp;from&nbsp;all&nbsp;Groups<br>
+Sprite.<a href="#Cube-kill">kill</a>():&nbsp;return&nbsp;None<br>
+&nbsp;<br>
+The&nbsp;Sprite&nbsp;is&nbsp;removed&nbsp;from&nbsp;all&nbsp;the&nbsp;Groups&nbsp;that&nbsp;contain&nbsp;it.&nbsp;This&nbsp;won't<br>
+change&nbsp;anything&nbsp;about&nbsp;the&nbsp;state&nbsp;of&nbsp;the&nbsp;Sprite.&nbsp;It&nbsp;is&nbsp;possible&nbsp;to&nbsp;continue<br>
+to&nbsp;use&nbsp;the&nbsp;Sprite&nbsp;after&nbsp;this&nbsp;method&nbsp;has&nbsp;been&nbsp;called,&nbsp;including&nbsp;adding&nbsp;it<br>
+to&nbsp;Groups.</tt></dd></dl>
+
+<dl><dt><a name="Cube-remove"><strong>remove</strong></a>(self, *groups)</dt><dd><tt>remove&nbsp;the&nbsp;sprite&nbsp;from&nbsp;groups<br>
+Sprite.<a href="#Cube-remove">remove</a>(*groups):&nbsp;return&nbsp;None<br>
+&nbsp;<br>
+Any&nbsp;number&nbsp;of&nbsp;Group&nbsp;instances&nbsp;can&nbsp;be&nbsp;passed&nbsp;as&nbsp;arguments.&nbsp;The&nbsp;Sprite&nbsp;will<br>
+be&nbsp;removed&nbsp;from&nbsp;the&nbsp;Groups&nbsp;it&nbsp;is&nbsp;currently&nbsp;a&nbsp;member&nbsp;of.</tt></dd></dl>
+
+<dl><dt><a name="Cube-remove_internal"><strong>remove_internal</strong></a>(self, group)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="pygame.sprite.html#Sprite">pygame.sprite.Sprite</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FallerGroup">class <strong>FallerGroup</strong></a>(<a href="pygame.sprite.html#RenderUpdates">pygame.sprite.RenderUpdates</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="game.objects.html#FallerGroup">FallerGroup</a></dd>
+<dd><a href="pygame.sprite.html#RenderUpdates">pygame.sprite.RenderUpdates</a></dd>
+<dd><a href="pygame.sprite.html#Group">pygame.sprite.Group</a></dd>
+<dd><a href="pygame.sprite.html#AbstractGroup">pygame.sprite.AbstractGroup</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="FallerGroup-stepdown"><strong>stepdown</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FallerGroup-stepleft"><strong>stepleft</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FallerGroup-stepright"><strong>stepright</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FallerGroup-stepup"><strong>stepup</strong></a>(self)</dt></dl>
+
+<hr>
+Methods inherited from <a href="pygame.sprite.html#RenderUpdates">pygame.sprite.RenderUpdates</a>:<br>
+<dl><dt><a name="FallerGroup-draw"><strong>draw</strong></a>(self, surface)</dt></dl>
+
+<hr>
+Methods inherited from <a href="pygame.sprite.html#Group">pygame.sprite.Group</a>:<br>
+<dl><dt><a name="FallerGroup-__init__"><strong>__init__</strong></a>(self, *sprites)</dt></dl>
+
+<hr>
+Methods inherited from <a href="pygame.sprite.html#AbstractGroup">pygame.sprite.AbstractGroup</a>:<br>
+<dl><dt><a name="FallerGroup-__contains__"><strong>__contains__</strong></a>(self, sprite)</dt></dl>
+
+<dl><dt><a name="FallerGroup-__iter__"><strong>__iter__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FallerGroup-__len__"><strong>__len__</strong></a>(self)</dt><dd><tt>len(group)<br>
+number&nbsp;of&nbsp;sprites&nbsp;in&nbsp;group<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;number&nbsp;of&nbsp;sprites&nbsp;contained&nbsp;in&nbsp;the&nbsp;group.</tt></dd></dl>
+
+<dl><dt><a name="FallerGroup-__nonzero__"><strong>__nonzero__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FallerGroup-__repr__"><strong>__repr__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FallerGroup-add"><strong>add</strong></a>(self, *sprites)</dt><dd><tt><a href="#FallerGroup-add">add</a>(sprite,&nbsp;list,&nbsp;or&nbsp;group,&nbsp;...)<br>
+add&nbsp;sprite&nbsp;to&nbsp;group<br>
+&nbsp;<br>
+Add&nbsp;a&nbsp;sprite&nbsp;or&nbsp;sequence&nbsp;of&nbsp;sprites&nbsp;to&nbsp;a&nbsp;group.</tt></dd></dl>
+
+<dl><dt><a name="FallerGroup-add_internal"><strong>add_internal</strong></a>(self, sprite)</dt></dl>
+
+<dl><dt><a name="FallerGroup-clear"><strong>clear</strong></a>(self, surface, bgd)</dt><dd><tt><a href="#FallerGroup-clear">clear</a>(surface,&nbsp;bgd)<br>
+erase&nbsp;the&nbsp;previous&nbsp;position&nbsp;of&nbsp;all&nbsp;sprites<br>
+&nbsp;<br>
+Clears&nbsp;the&nbsp;area&nbsp;of&nbsp;all&nbsp;drawn&nbsp;sprites.&nbsp;the&nbsp;bgd<br>
+argument&nbsp;should&nbsp;be&nbsp;Surface&nbsp;which&nbsp;is&nbsp;the&nbsp;same<br>
+dimensions&nbsp;as&nbsp;the&nbsp;surface.&nbsp;The&nbsp;bgd&nbsp;can&nbsp;also&nbsp;be<br>
+a&nbsp;function&nbsp;which&nbsp;gets&nbsp;called&nbsp;with&nbsp;the&nbsp;passed<br>
+surface&nbsp;and&nbsp;the&nbsp;area&nbsp;to&nbsp;be&nbsp;cleared.</tt></dd></dl>
+
+<dl><dt><a name="FallerGroup-copy"><strong>copy</strong></a>(self)</dt><dd><tt><a href="#FallerGroup-copy">copy</a>()<br>
+copy&nbsp;a&nbsp;group&nbsp;with&nbsp;all&nbsp;the&nbsp;same&nbsp;sprites<br>
+&nbsp;<br>
+Returns&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;group&nbsp;that&nbsp;is&nbsp;the&nbsp;same&nbsp;class<br>
+type,&nbsp;and&nbsp;has&nbsp;the&nbsp;same&nbsp;sprites&nbsp;in&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="FallerGroup-empty"><strong>empty</strong></a>(self)</dt><dd><tt><a href="#FallerGroup-empty">empty</a>()<br>
+remove&nbsp;all&nbsp;sprites<br>
+&nbsp;<br>
+Removes&nbsp;all&nbsp;the&nbsp;sprites&nbsp;from&nbsp;the&nbsp;group.</tt></dd></dl>
+
+<dl><dt><a name="FallerGroup-has"><strong>has</strong></a>(self, *sprites)</dt><dd><tt><a href="#FallerGroup-has">has</a>(sprite&nbsp;or&nbsp;group,&nbsp;...)<br>
+ask&nbsp;if&nbsp;group&nbsp;has&nbsp;a&nbsp;sprite&nbsp;or&nbsp;sprites<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;given&nbsp;sprite&nbsp;or&nbsp;sprites&nbsp;are<br>
+contained&nbsp;in&nbsp;the&nbsp;group.&nbsp;You&nbsp;can&nbsp;also&nbsp;use&nbsp;'sprite&nbsp;in&nbsp;group'<br>
+or&nbsp;'subgroup&nbsp;in&nbsp;group'.</tt></dd></dl>
+
+<dl><dt><a name="FallerGroup-has_internal"><strong>has_internal</strong></a>(self, sprite)</dt></dl>
+
+<dl><dt><a name="FallerGroup-remove"><strong>remove</strong></a>(self, *sprites)</dt><dd><tt><a href="#FallerGroup-remove">remove</a>(sprite,&nbsp;list,&nbsp;or&nbsp;group,&nbsp;...)<br>
+remove&nbsp;sprite&nbsp;from&nbsp;group<br>
+&nbsp;<br>
+Remove&nbsp;a&nbsp;sprite&nbsp;or&nbsp;sequence&nbsp;of&nbsp;sprites&nbsp;from&nbsp;a&nbsp;group.</tt></dd></dl>
+
+<dl><dt><a name="FallerGroup-remove_internal"><strong>remove_internal</strong></a>(self, sprite)</dt></dl>
+
+<dl><dt><a name="FallerGroup-sprites"><strong>sprites</strong></a>(self)</dt><dd><tt><a href="#FallerGroup-sprites">sprites</a>()<br>
+get&nbsp;a&nbsp;list&nbsp;of&nbsp;sprites&nbsp;in&nbsp;the&nbsp;group<br>
+&nbsp;<br>
+Returns&nbsp;an&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;that&nbsp;can&nbsp;be&nbsp;looped&nbsp;over&nbsp;with&nbsp;a&nbsp;'for'&nbsp;loop.<br>
+(For&nbsp;now&nbsp;it&nbsp;is&nbsp;always&nbsp;a&nbsp;list,&nbsp;but&nbsp;newer&nbsp;version&nbsp;of&nbsp;Python<br>
+could&nbsp;return&nbsp;different&nbsp;iterators.)&nbsp;You&nbsp;can&nbsp;also&nbsp;iterate&nbsp;directly<br>
+over&nbsp;the&nbsp;sprite&nbsp;group.</tt></dd></dl>
+
+<dl><dt><a name="FallerGroup-update"><strong>update</strong></a>(self, *args)</dt><dd><tt><a href="#FallerGroup-update">update</a>(*args)<br>
+call&nbsp;update&nbsp;for&nbsp;all&nbsp;member&nbsp;sprites<br>
+&nbsp;<br>
+calls&nbsp;the&nbsp;update&nbsp;method&nbsp;for&nbsp;all&nbsp;sprites&nbsp;in&nbsp;the&nbsp;group.<br>
+Passes&nbsp;all&nbsp;arguments&nbsp;on&nbsp;to&nbsp;the&nbsp;Sprite&nbsp;update&nbsp;function.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="pygame.sprite.html#AbstractGroup">pygame.sprite.AbstractGroup</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Floor">class <strong>Floor</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Sprite&nbsp;used&nbsp;to&nbsp;represent&nbsp;the&nbsp;absolute&nbsp;'floor'&nbsp;of&nbsp;the&nbsp;board.<br>
+Basically&nbsp;used&nbsp;for&nbsp;collision&nbsp;detection&nbsp;only.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Floor-__init__"><strong>__init__</strong></a>(self, boardrect)</dt><dd><tt>INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;boardrect&nbsp;=&nbsp;a&nbsp;pygame.rect.Rect&nbsp;describing&nbsp;the&nbsp;gameboard&nbsp;geometry<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;new&nbsp;<a href="#Floor">Floor</a>&nbsp;<a href="__builtin__.html#object">object</a><br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ScoreKeeper">class <strong>ScoreKeeper</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Score&nbsp;Keeping&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;for&nbsp;the&nbsp;game<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ScoreKeeper-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;<a href="#ScoreKeeper">ScoreKeeper</a>&nbsp;<a href="__builtin__.html#object">object</a><br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+
+<dl><dt><a name="ScoreKeeper-get_lines"><strong>get_lines</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ScoreKeeper-get_score"><strong>get_score</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ScoreKeeper-mark"><strong>mark</strong></a>(self, number, state<font color="#909090">='removed'</font>)</dt><dd><tt>Update&nbsp;the&nbsp;internal&nbsp;score&nbsp;count<br>
+&nbsp;<br>
+INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;=&nbsp;the&nbsp;number&nbsp;of&nbsp;events&nbsp;to&nbsp;count&nbsp;for&nbsp;scoring<br>
+&nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;&nbsp;=&nbsp;a&nbsp;string&nbsp;representing&nbsp;the&nbsp;type&nbsp;of&nbsp;event&nbsp;to&nbsp;be&nbsp;scored.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;an&nbsp;invalid&nbsp;state&nbsp;is&nbsp;given,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Valid&nbsp;values&nbsp;are:&nbsp;'removed',&nbsp;'stepdown',&nbsp;'drop'<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None<br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+
+<dl><dt><a name="ScoreKeeper-renderscore"><strong>renderscore</strong></a>(self, infont)</dt><dd><tt>Render&nbsp;the&nbsp;current&nbsp;score&nbsp;as&nbsp;an&nbsp;image<br>
+&nbsp;<br>
+INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;infont&nbsp;=&nbsp;a&nbsp;pygame.Font&nbsp;<a href="__builtin__.html#object">object</a><br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pygame.Surface,&nbsp;pygame.rect.Rect<br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+
+<dl><dt><a name="ScoreKeeper-reset"><strong>reset</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SpawnBox">class <strong>SpawnBox</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Box&nbsp;where&nbsp;pieces&nbsp;are&nbsp;designated&nbsp;to&nbsp;spawn.&nbsp;Pieces&nbsp;spawn&nbsp;in&nbsp;the&nbsp;center&nbsp;of&nbsp;the<br>
+spawnbox<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="SpawnBox-__init__"><strong>__init__</strong></a>(self, boardrect, width, height, cubelen)</dt><dd><tt>INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;boardrect&nbsp;=&nbsp;rect&nbsp;describing&nbsp;total&nbsp;board&nbsp;geometry<br>
+&nbsp;&nbsp;&nbsp;&nbsp;width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;width&nbsp;of&nbsp;spawn&nbsp;box,&nbsp;as&nbsp;a&nbsp;multiple&nbsp;of&nbsp;cubelen<br>
+&nbsp;&nbsp;&nbsp;&nbsp;height&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;height&nbsp;of&nbsp;spawn&nbsp;box,&nbsp;as&nbsp;a&nbsp;multiple&nbsp;of&nbsp;cubelen<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cubelen&nbsp;&nbsp;&nbsp;=&nbsp;the&nbsp;side-length&nbsp;of&nbsp;the&nbsp;cubes<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;new&nbsp;<a href="#SpawnBox">SpawnBox</a><br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None</tt></dd></dl>
+
+<dl><dt><a name="SpawnBox-spawnpoint"><strong>spawnpoint</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Wall">class <strong>Wall</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Sprite&nbsp;used&nbsp;to&nbsp;represent&nbsp;the&nbsp;absolute&nbsp;'wall'&nbsp;of&nbsp;the&nbsp;board.<br>
+Basically&nbsp;used&nbsp;for&nbsp;collision&nbsp;detection&nbsp;only.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Wall-__init__"><strong>__init__</strong></a>(self, boardrect, side)</dt><dd><tt>INPUTS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;boardrect&nbsp;=&nbsp;A&nbsp;pygame.Rect&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;for&nbsp;the&nbsp;gameboard<br>
+&nbsp;&nbsp;&nbsp;&nbsp;side&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;A&nbsp;string&nbsp;representing&nbsp;which&nbsp;side&nbsp;to&nbsp;attach&nbsp;this&nbsp;'wall'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to.&nbsp;Valid&nbsp;values:&nbsp;'left',&nbsp;and&nbsp;'right'<br>
+RETURNS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;'<a href="#Wall">Wall</a>'&nbsp;<a href="__builtin__.html#object">object</a><br>
+ERRORS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;TypeError&nbsp;on&nbsp;unrecognized&nbsp;argument&nbsp;for&nbsp;'side'</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-floor"><strong>floor</strong></a>(...)</dt><dd><tt><a href="#-floor">floor</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;floor&nbsp;of&nbsp;x&nbsp;as&nbsp;a&nbsp;float.<br>
+This&nbsp;is&nbsp;the&nbsp;largest&nbsp;integral&nbsp;value&nbsp;&lt;=&nbsp;x.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>SRCALPHA</strong> = 65536<br>
+<strong>logger</strong> = &lt;logging.Logger instance&gt;</td></tr></table>
+</body></html>

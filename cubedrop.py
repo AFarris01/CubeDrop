@@ -72,6 +72,7 @@ MAXFPS = 60
 
 # record the current execution path as the central resource path
 PATH = os.path.dirname(os.path.realpath(__file__))
+print PATH
 IMAGEDIR = 'data'
 SOUNDDIR = 'data'
 FONTDIR  = 'data'
@@ -152,9 +153,9 @@ def FireUpPygame():
     pygame.font.init()
     ReportOnModule( 'Font', pygame.font.get_init() )
     logger.info( "Sound subsystem is starting..." )
+    pygame.mixer.pre_init(44100, -16, 2)
     pygame.mixer.init()
     ReportOnModule( 'Sound', pygame.mixer.get_init() )
-
     atexit.register(pygame.quit)
     
 def MakeBorders( resources, background, *args ):
@@ -230,12 +231,19 @@ if __name__ == '__main__':
     pygame.key.set_repeat(300,50)
     pygame.display.set_caption('CubeDrop')
     gameclock = pygame.time.Clock()
+    screen.blit(pygame.font.SysFont('Arial', CUBELEN*2,).render("Loading...",True,(255,255,255),(0,0,0)),(CUBELEN,CUBELEN))
+    pygame.display.flip()
     
     resources = game.ResourceManager( PATH, IMAGEDIR, SOUNDDIR, FONTDIR )
     resources.LoadImage( 'boxxen.png', 'Cube' )
     resources.LoadImage( 'borders.png', 'Borders' )
     resources.LoadImage( 'backdrop.png', 'Backdrop' )
     resources.LoadFont( 'Biolinum_Re-0.4.1RO.ttf', 'sysfont', CUBELEN )
+    resources.LoadSound( 'rotate.ogg', 'rotate' )
+    resources.LoadSound( 'remove.ogg', 'remove' )
+    resources.LoadSound( 'bump.ogg', 'bump' )
+    resources.LoadSound( 'drop.ogg', 'drop' )
+    resources.LoadSound( 'end.ogg', 'end' )
     
     background.blit( pygame.transform.smoothscale(resources.get('image', 'Backdrop')[0], (width, height)), (0,0) )
     
@@ -246,8 +254,10 @@ if __name__ == '__main__':
     preview = game.Previewer( previewrect, isgame )
     scorerect = pygame.Rect(width-3*CUBELEN-5,10*CUBELEN, 3*CUBELEN, 2*CUBELEN )    
     levelrect = pygame.Rect(width-3*CUBELEN-5,13*CUBELEN, 3*CUBELEN, 2*CUBELEN )
+    linesrect = pygame.Rect(width-3*CUBELEN-5,16*CUBELEN, 3*CUBELEN, 2*CUBELEN )
     
-    borders = MakeBorders( resources, background, isgame.rect, previewrect, scorerect, levelrect )
+    borders = MakeBorders( resources, background, isgame.rect, previewrect, scorerect, levelrect, linesrect )
+    pygame.mixer.music.load( os.path.join(PATH,SOUNDDIR,'bgm.ogg') )
     
     #########?? Kill the Splash Screen ??#########
     
@@ -263,6 +273,7 @@ if __name__ == '__main__':
     options = gui.OptionsMenu( screen.get_rect() )
 
     def OpenOptions(event):
+        mygame.mixer.music.stop()
         pygame.mouse.set_visible(1)
         options.MenuActivate()
         menus.MenuDeactivate()
@@ -270,6 +281,7 @@ if __name__ == '__main__':
         print "Opening Options!"
         
     def OpenMain(event):
+        pygame.mixer.music.stop()
         pygame.mouse.set_visible(1)
         menus.MenuActivate()
         options.MenuDeactivate()
@@ -293,8 +305,9 @@ if __name__ == '__main__':
         options.MenuDeactivate()
         pygame.mouse.set_visible(0)
         menus.MenuDeactivate()
-        isgame.Activate()
+        pygame.mixer.music.play(-1)
         print "Starting Game!"
+        isgame.Activate()
 
     options.back.on_mouse_click = OpenMain
     menus.fetchwidget('Options').on_mouse_click = OpenOptions
@@ -334,13 +347,22 @@ if __name__ == '__main__':
                 isgame.clear( screen, background )
                 isgame.update()
                 dirtyspots += isgame.draw( screen )
+                fon = resources.get('font','sysfont')
                 
 #                l = resources.get('font','sysfont').render( "Score:", True, (255,255,255) )
-                s = isgame.scoreboard.renderscore( resources.get('font','sysfont') )
+                s = isgame.scoreboard.renderscore( fon )
 #                s[1].top = l.get_rect().bottom
 #                screen.blit(l,scorerect,area=l.get_rect())
                 screen.blit(s[0],scorerect,area=s[1])
                 dirtyspots += [scorerect]
+                
+                lin = fon.render( "L:%i" % isgame.scoreboard.get_lines(), True, (255,255,255))
+                screen.blit(lin,linesrect,area=lin.get_rect())
+                dirtyspots += [scorerect]
+                
+                s = fon.render( "Lvl: %i" % isgame.Level, True, (255,255,255) )
+                screen.blit(s,levelrect,area=s.get_rect())
+                dirtyspots += [levelrect]
 
                 if preview.NeedPreview():
                     pygame.display.flip()
@@ -348,9 +370,6 @@ if __name__ == '__main__':
                     preview.update()
                     dirtyspots += preview.draw( screen )
                     
-                    s = resources.get('font','sysfont').render( "Lvl: %i" % isgame.Level, True, (255,255,255) )
-                    screen.blit(s,levelrect,area=s.get_rect())
-                    dirtyspots += [levelrect]
             else:
                 OpenMain(None)
                 menus.clear( screen, background )
@@ -361,3 +380,4 @@ if __name__ == '__main__':
             
         except KeyboardInterrupt:
             logger.info('Caught a keyboard interrupt, stopping!')
+            cont = False
