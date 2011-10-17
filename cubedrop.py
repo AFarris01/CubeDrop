@@ -60,7 +60,7 @@ atexit.register( logging.shutdown )
 #logger.addHandler( h )
 
 DEBUG       = True
-VERSION     = "0.5.0"
+VERSION     = "0.8.0"
 COPYRIGHT   = "Copyright \xc2\xa9 2011 Andrew Farris -- GNU GPL v3"
 WEBSITE     = "N/A"
 PROGNAME    = "CubeDrop"
@@ -273,7 +273,7 @@ if __name__ == '__main__':
     options = gui.OptionsMenu( screen.get_rect() )
 
     def OpenOptions(event):
-        mygame.mixer.music.stop()
+        pygame.mixer.music.stop()
         pygame.mouse.set_visible(1)
         options.MenuActivate()
         menus.MenuDeactivate()
