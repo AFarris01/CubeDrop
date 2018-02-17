@@ -65,9 +65,13 @@ COPYRIGHT   = "Copyright \xc2\xa9 2011 Andrew Farris -- GNU GPL v3"
 WEBSITE     = "N/A"
 PROGNAME    = "CubeDrop"
 
-CUBELEN = 30
+#CUBELEN = 30
+CUBELEN = 50
+#CUBELEN = 15
 BOARDWIDTH = 14
+#BOARDWIDTH = 60
 BOARDHEIGHT = 20
+#BOARDHEIGHT = 40
 MAXFPS = 60
 
 # record the current execution path as the central resource path
