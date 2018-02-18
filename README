@@ -1,0 +1,35 @@
+This is CubeDrop.  
+
+CubeDrop is essentially a Tetris clone, but with a few compelling 
+additional capabilities/features added by me for experimentation porpoises.
+
+I wrote this game many years ago on a whim in an attempt to get more familiar with Pygame.
+The end goal was to build a fully functional game that I could use as a stepping stone to create more interesting things.
+It has not been updated since that time.
+
+Notable currently-accessible features of CubeDrop:
+* Basic Tetris game
+* Preview of upcoming pieces
+* Custom art (all done by me) 
+* Sounds (Royalty-free clips from the tubes of the internets)
+* Music (Was going to be by me, but it turns out I'm terrible at music so instead I used the demo track "RandomProjectNumber14253" by Skiessi from LMMS. Good stuff.)
+* Custom pieces for unique gameplay options
+
+Implemented but inaccessible (without some hacking) features
+* Arbitrary game board sizes
+* Create custom pieces on the fly
+* Custom piece textures
+
+Planned (but non-implemented) features
+* More sophisticated difficulty scaling
+* Adventure mode
+* Bastard mode
+* Multi-player & vs AI
+
+Known bugs:
+* Hiscores don't work
+    - The scoreboard was implemented originally, but the code was lost.
+      At the time I was sharing my code between my desktop and laptops manually, before I started using Git.  
+      As a result, one on my laptops has the codebase with hiscores implemented, and it never migrated properly to the desktop.
+      If I find it, I'll make a new commit and upload it here.
+
